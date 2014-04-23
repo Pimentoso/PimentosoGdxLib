@@ -26,11 +26,18 @@ import com.pimentoso.games.lib.utils.BodyEditorLoader;
  */
 public class Box2dActor extends StaticImage implements Poolable, Disposable {
 
+	public static final int STATE_READY = 0;
+	public static final int STATE_ALIVE = 16;
+	public static final int STATE_DEAD =  32;
+	
 	public static final Filter FILTER = new Filter();
 	
 	public Body body;
 	public boolean hit;
 	public int coins;
+
+	public int state;
+	public float stateTime;
 	
 	private World world;
 	
@@ -68,6 +75,7 @@ public class Box2dActor extends StaticImage implements Poolable, Disposable {
 		}
 		
 		coins = 1;
+		setState(STATE_READY);
 		setPosition(body.getPosition().x-(width/2), body.getPosition().y-(height/2));
 		setSize(width, height);
 		setScaling(Scaling.stretch);
@@ -112,6 +120,11 @@ public class Box2dActor extends StaticImage implements Poolable, Disposable {
 		setAlign(Align.center);
 		invalidate();
 	}
+	
+	public void setState(int state) {
+		this.state = state;
+		this.stateTime = 0f;
+	}
 
 	@Override
 	public void reset() {
@@ -131,6 +144,7 @@ public class Box2dActor extends StaticImage implements Poolable, Disposable {
 	@Override
 	public void act(float delta) {
 		super.act(delta);
+        stateTime += delta;
 		setRotation(MathUtils.radiansToDegrees * body.getAngle());
 		setPosition(body.getPosition().x, body.getPosition().y);
 	}
