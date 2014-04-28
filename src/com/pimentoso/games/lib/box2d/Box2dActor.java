@@ -30,8 +30,6 @@ public class Box2dActor extends StaticImage implements Poolable, Disposable {
 	public static final int STATE_ALIVE = 16;
 	public static final int STATE_DEAD =  32;
 	
-	public static final Filter FILTER = new Filter();
-	
 	public Body body;
 	public boolean hit;
 	public int coins;
@@ -45,7 +43,7 @@ public class Box2dActor extends StaticImage implements Poolable, Disposable {
 		this.world = world;
 	}
 	
-	public void init(TextureRegion region, float x, float y, float width, float height, float density) {
+	public void init(TextureRegion region, float x, float y, float width, float height, PhysicsProperties prop) {
 		
 		PolygonShape poly = null;
 		BodyDef bodyDef = null;
@@ -60,8 +58,13 @@ public class Box2dActor extends StaticImage implements Poolable, Disposable {
 		
 		body = world.createBody(bodyDef);
 		body.setUserData(this);
-		Fixture fix = body.createFixture(poly, density);
-		fix.setFilterData(FILTER);
+		Fixture fix = body.createFixture(poly, prop.density);
+		Filter filter = new Filter();
+		filter.categoryBits = prop.filterCategory;
+		filter.maskBits = prop.filterMask;
+		fix.setFriction(prop.friction);
+		fix.setRestitution(prop.restitution);
+		fix.setFilterData(filter);
 		
 		Pools.get(PolygonShape.class).free(poly);
 		Pools.get(BodyDef.class).free(bodyDef);
@@ -83,7 +86,7 @@ public class Box2dActor extends StaticImage implements Poolable, Disposable {
 		invalidate();
 	}
 	
-	public void init(TextureRegion region, BodyEditorLoader loader, String name, float x, float y, float width, float height, float density) {
+	public void init(TextureRegion region, BodyEditorLoader loader, String name, float x, float y, float width, float height, PhysicsProperties prop) {
 				
 		BodyDef bodyDef = Pools.get(BodyDef.class).obtain();
 		bodyDef.type = BodyType.DynamicBody;
@@ -91,11 +94,11 @@ public class Box2dActor extends StaticImage implements Poolable, Disposable {
 		bodyDef.position.y = y;
 	 
 	    FixtureDef fixtureDef = Pools.get(FixtureDef.class).obtain();
-	    fixtureDef.density = density;
-	    fixtureDef.friction = 0.5f;
-	    fixtureDef.restitution = 0.5f;
-	    fixtureDef.filter.categoryBits = FILTER.categoryBits;
-	    fixtureDef.filter.maskBits = FILTER.maskBits;
+	    fixtureDef.density = prop.density;
+	    fixtureDef.friction = prop.friction;
+	    fixtureDef.restitution = prop.restitution;
+	    fixtureDef.filter.categoryBits = prop.filterCategory;
+	    fixtureDef.filter.maskBits = prop.filterMask;
 	 
 	    body = world.createBody(bodyDef);
 	    body.setActive(true);
@@ -103,7 +106,7 @@ public class Box2dActor extends StaticImage implements Poolable, Disposable {
 	    loader.attachFixture(body, name, fixtureDef, width);
 	    
 	    Pools.get(FixtureDef.class).free(fixtureDef);
-	    // Pools.get(BodyDef.class).free(bodyDef); XXX scommentare?
+	    Pools.get(BodyDef.class).free(bodyDef);
 		
 		if (getDrawable() == null) {
 			setDrawable(new TextureRegionDrawable(region));
@@ -147,5 +150,26 @@ public class Box2dActor extends StaticImage implements Poolable, Disposable {
         stateTime += delta;
 		setRotation(MathUtils.radiansToDegrees * body.getAngle());
 		setPosition(body.getPosition().x, body.getPosition().y);
+	}
+	
+	/**
+	 * Container for various properties to apply to the box2d body. 
+	 * @author Pimentoso
+	 */
+	public class PhysicsProperties {
+		
+		public short filterCategory;
+		public short filterMask;
+		public float density;
+		public float friction;
+		public float restitution;
+		
+		public PhysicsProperties(short filterCategory, short filterMask, float density, float friction, float restitution) {
+			this.filterCategory = filterCategory;
+			this.filterMask = filterMask;
+			this.density = density;
+			this.friction = friction;
+			this.restitution = restitution;
+		}
 	}
 }
