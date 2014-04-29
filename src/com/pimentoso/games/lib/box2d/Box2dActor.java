@@ -151,25 +151,4 @@ public class Box2dActor extends StaticImage implements Poolable, Disposable {
 		setRotation(MathUtils.radiansToDegrees * body.getAngle());
 		setPosition(body.getPosition().x, body.getPosition().y);
 	}
-	
-	/**
-	 * Container for various properties to apply to the box2d body. 
-	 * @author Pimentoso
-	 */
-	public class PhysicsProperties {
-		
-		public short filterCategory;
-		public short filterMask;
-		public float density;
-		public float friction;
-		public float restitution;
-		
-		public PhysicsProperties(short filterCategory, short filterMask, float density, float friction, float restitution) {
-			this.filterCategory = filterCategory;
-			this.filterMask = filterMask;
-			this.density = density;
-			this.friction = friction;
-			this.restitution = restitution;
-		}
-	}
 }
