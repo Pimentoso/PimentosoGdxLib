@@ -57,6 +57,7 @@ public class Box2dActor extends StaticImage implements Poolable, Disposable {
 		bodyDef.position.y = y;
 		
 		body = world.createBody(bodyDef);
+	    body.setActive(true);
 		body.setUserData(this);
 		Fixture fix = body.createFixture(poly, prop.density);
 		Filter filter = new Filter();
