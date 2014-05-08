@@ -152,4 +152,8 @@ public class Box2dActor extends StaticImage implements Poolable, Disposable {
 		setRotation(MathUtils.radiansToDegrees * body.getAngle());
 		setPosition(body.getPosition().x, body.getPosition().y);
 	}
+
+	public World getWorld() {
+		return world;
+	}
 }
