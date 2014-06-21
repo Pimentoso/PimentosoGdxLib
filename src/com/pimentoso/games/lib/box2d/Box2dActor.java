@@ -39,6 +39,8 @@ public class Box2dActor extends StaticImage implements Poolable, Disposable {
 	
 	private World world;
 	
+	private boolean fromLoader;
+	
 	public Box2dActor(World world) {
 		this.world = world;
 	}
@@ -85,6 +87,8 @@ public class Box2dActor extends StaticImage implements Poolable, Disposable {
 		setScaling(Scaling.stretch);
 		setAlign(Align.center);
 		invalidate();
+		
+		fromLoader = false;
 	}
 	
 	public void init(TextureRegion region, BodyEditorLoader loader, String name, float x, float y, float width, float height, PhysicsProperties prop) {
@@ -123,6 +127,8 @@ public class Box2dActor extends StaticImage implements Poolable, Disposable {
 		setScaling(Scaling.fillX);
 		setAlign(Align.center);
 		invalidate();
+		
+		fromLoader = true;
 	}
 	
 	public void setState(int state) {
@@ -150,7 +156,11 @@ public class Box2dActor extends StaticImage implements Poolable, Disposable {
 		super.act(delta);
         stateTime += delta;
 		setRotation(MathUtils.radiansToDegrees * body.getAngle());
-		setPosition(body.getPosition().x, body.getPosition().y);
+		
+		if (fromLoader)
+			setPosition(body.getPosition().x, body.getPosition().y);
+		else
+			setPosition(body.getPosition().x-getWidth()/2, body.getPosition().y-getHeight()/2);
 	}
 
 	public World getWorld() {

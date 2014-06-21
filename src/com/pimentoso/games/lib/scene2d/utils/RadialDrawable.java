@@ -1,11 +1,11 @@
-package com.pimentoso.games.lib.g2d;
+package com.pimentoso.games.lib.scene2d.utils;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
 
 /**
  * Sprite for handling circular progress bars.
@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
  *
  * @author Xoppa 
  */
-public class RadialSprite implements Drawable {
+public class RadialDrawable extends BaseDrawable {
 	private final static int TOPRIGHT1 = 0;
 	private final static int BOTTOMRIGHT1 = 5;
 	private final static int BOTTOMLEFT1 = 10;
@@ -27,7 +27,6 @@ public class RadialSprite implements Drawable {
 	private final static int BOTTOMLEFT3 = 50;
 	private final static int TOPLEFT3 = 55;
 	
-	
 	private Texture texture;
 	private final float[] verts = new float[60];
 	private float x, y, angle, width, height, u1, u2, v1, v2, du, dv;
@@ -37,12 +36,8 @@ public class RadialSprite implements Drawable {
 	private float originX, originY;
 	private float scaleX = 1f, scaleY = 1f;
 	
-	public RadialSprite(final TextureRegion textureRegion) {
-		this.texture = textureRegion.getTexture();
-		this.u1 = textureRegion.getU();
-		this.v1 = textureRegion.getV();
-		this.u2 = textureRegion.getU2();
-		this.v2 = textureRegion.getV2();
+	public RadialDrawable(final TextureRegion textureRegion) {
+		setRegion(textureRegion);
 		this.du = u2 - u1;
 		this.dv = v2 - v1;
 		this.width = textureRegion.getRegionWidth();
@@ -173,7 +168,6 @@ public class RadialSprite implements Drawable {
 		dirty = true;
 	}
 	
-	
 	@Override
 	public void draw(Batch batch, float x, float y, float width, float height) {
 		draw(batch, x, y, width, height, this.angle);
@@ -190,83 +184,18 @@ public class RadialSprite implements Drawable {
 		dirty = true;
 	}
 	
-	private float leftWidth = 0;
-	private float rightWidth = 0;
-	private float topHeight = 0;
-	private float bottomHeight = 0;
-	private float minWidth = 0;
-	private float minHeight = 0;
-
-	@Override
-	public float getLeftWidth() {
-		return leftWidth;
-	}
-
-	@Override
-	public void setLeftWidth(float leftWidth) {
-		this.leftWidth = leftWidth;
-	}
-
-	@Override
-	public float getRightWidth() {
-		return rightWidth;
-	}
-
-	@Override
-	public void setRightWidth(float rightWidth) {
-		this.rightWidth = rightWidth;
-	}
-
-	@Override
-	public float getTopHeight() {
-		return topHeight;
-	}
-
-	@Override
-	public void setTopHeight(float topHeight) {
-		this.topHeight = topHeight;
-	}
-
-	@Override
-	public float getBottomHeight() {
-		return bottomHeight;
-	}
-
-	@Override
-	public void setBottomHeight(float bottomHeight) {
-		this.bottomHeight = bottomHeight;
-	}
-
-	@Override
-	public float getMinWidth() {
-		return minWidth;
-	}
-
-	@Override
-	public void setMinWidth(float minWidth) {
-		this.minWidth = minWidth;
-	}
-
-	@Override
-	public float getMinHeight() {
-		return minHeight;
-	}
-
-	@Override
-	public void setMinHeight(float minHeight) {
-		this.minHeight = minHeight;
-	}
-	
 	public Texture getTexture() {
 		return texture;
 	}
 	
-	public void setTextureRegion(final TextureRegion textureRegion) {
-		this.texture = textureRegion.getTexture();
-		this.u1 = textureRegion.getU();
-		this.v1 = textureRegion.getV();
-		this.u2 = textureRegion.getU2();
-		this.v2 = textureRegion.getV2();
+	public void setRegion(TextureRegion region) {
+		this.texture = region.getTexture();
+		this.u1 = region.getU();
+		this.v1 = region.getV();
+		this.u2 = region.getU2();
+		this.v2 = region.getV2();
+		setMinWidth(region.getRegionWidth());
+		setMinHeight(region.getRegionHeight());
 		this.dirty = true;
 	}
 }
