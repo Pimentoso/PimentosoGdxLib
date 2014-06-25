@@ -15,14 +15,12 @@ public class Utils {
 	 * Interpola un valore compreso fra un massimo e un minimo secondo una {@link Interpolation}.
 	 * @param i l'interpolazione da usare
 	 * @param min valore minimo
-	 * @param value valore da interpolare
+	 * @param value valore da interpolare (0,1)
 	 * @param max valore massimo
 	 * @return valore interpolato
 	 */
 	public static float interpolate(Interpolation i, float min, float value, float max) {
-		float val2 = (value-min)/(max-min);
-		val2 = i.apply(val2);		
-		return val2*(max-min)+min;
+		return (i.apply(value) * (max-min)) + min;
 	}
 	
 	public static CharSequence prettyTime(float seconds) {
