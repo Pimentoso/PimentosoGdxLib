@@ -4,6 +4,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 
 public class Utils {
@@ -46,7 +52,7 @@ public class Utils {
 	}
 	
 	/**
-	 * Metodo identico a StringUtils.isEmpty()
+	 * Copied from StringUtils.isEmpty()
 	 */
 	public static boolean isEmpty(final CharSequence cs) {
 		return cs == null || cs.length() == 0;
@@ -54,6 +60,24 @@ public class Utils {
 	public static boolean isNotEmpty(final CharSequence cs) {
 		return !Utils.isEmpty(cs);
 	}
+	
+	/**
+	 * Create a single pixel texture from a color.
+	 */
+	public static Texture createTexturePixel(Color c) {
+		Pixmap map = new Pixmap(2, 2, Format.RGBA8888);
+		map.setColor(c);
+		map.fillRectangle(0, 0, 2, 2);
+		Texture retorno = new Texture(map);
+		retorno.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+		map.dispose();
+		return retorno;
+	}
+	
+	public static TextureRegion createTextureRegionPixel(Color c) {
+		return new TextureRegion(createTexturePixel(c), 2, 2);
+	}
+
 	
 	public static void main(String... args) {
 		Interpolation intrp = Interpolation.circleIn;

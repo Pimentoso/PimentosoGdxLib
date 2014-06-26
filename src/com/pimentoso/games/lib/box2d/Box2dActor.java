@@ -82,7 +82,7 @@ public class Box2dActor extends StaticImage implements Poolable, Disposable {
 		
 		coins = 1;
 		setState(STATE_READY);
-		setPosition(body.getPosition().x-(width/2), body.getPosition().y-(height/2));
+		setCenterPosition(body.getPosition().x, body.getPosition().y);
 		setSize(width, height);
 		setScaling(Scaling.stretch);
 		setAlign(Align.center);
