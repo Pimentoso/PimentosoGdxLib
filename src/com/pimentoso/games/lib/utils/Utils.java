@@ -1,6 +1,7 @@
 package com.pimentoso.games.lib.utils;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -49,6 +50,19 @@ public class Utils {
 	
 	public static String getTodayDate() {
 		return format.format(new Date());
+	}
+	
+	public static String dateToString(Date source) {
+		return format.format(source);
+	}
+	
+	public static Date stringToDate(String source) {
+		try {
+			return format.parse(source);
+		} 
+		catch (ParseException e) {
+			return new Date();
+		}
 	}
 	
 	/**
