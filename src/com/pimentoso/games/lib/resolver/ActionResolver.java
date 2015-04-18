@@ -2,8 +2,6 @@ package com.pimentoso.games.lib.resolver;
 
 public interface ActionResolver {
 	
-	public abstract void vibrate(long millis);
-	
 	public abstract boolean gameServicesAvailable();
 	
 	public abstract void gameServicesLogin();

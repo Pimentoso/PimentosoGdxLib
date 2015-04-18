@@ -12,8 +12,7 @@ import com.badlogic.gdx.utils.Scaling;
 import com.pimentoso.games.lib.scene2d.StaticImage;
 
 /**
- * Generic {@link StaticImage} actor linked to a Box2d body.
- * This actor automatically follows its Box2d body when act() is called.
+ * Generic {@link StaticImage} actor.
  * @author Pimentoso
  */
 public class ImageActor extends StaticImage implements Poolable, Disposable {
@@ -44,10 +43,9 @@ public class ImageActor extends StaticImage implements Poolable, Disposable {
 		
 		coins = 1;
 		setState(STATE_READY);
-		setPosition(x, y, Align.center); // TODO CONTROLLARE
+		setPosition(x, y);
 		setSize(width, height);
 		setScaling(Scaling.stretch);
-		setAlign(Align.center);
 		invalidate();
 	}
 	
@@ -73,8 +71,6 @@ public class ImageActor extends StaticImage implements Poolable, Disposable {
 	public void act(float delta) {
 		super.act(delta);
         stateTime += delta;
-		setRotation(MathUtils.radiansToDegrees * getRotation()); // TODO controllare
-		setPosition(getX()-getWidth()/2, getY()-getHeight()/2);
 	}
 	
 	public boolean isOutOfScreen(float worldWidth, float worldHeight) {
