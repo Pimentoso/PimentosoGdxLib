@@ -1,8 +1,7 @@
 package com.pimentoso.games.lib.g2d.legacy;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
-import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
@@ -16,41 +15,43 @@ public class TextGameObject extends TransitionGameObject {
 	
 	public BitmapFont font;
 	public String text;
-	public HAlignment textAlign;
+	public int textAlign;
 	public float textAlignWidth;
-	private TextBounds _textBounds;
+	private GlyphLayout _textBounds;
 
 	public TextGameObject(BitmapFont font, String text, float x, float y) {
 		super(null, x, y);
 		this.font = font;
 		this.text = text;
-		_textBounds = font.getBounds(text);
+		_textBounds = new GlyphLayout();
+        _textBounds.setText(font, text);
 	}
 	
-	public TextGameObject(BitmapFont font, String text, float x, float y, float alignWidth, HAlignment align) {
+	public TextGameObject(BitmapFont font, String text, float x, float y, float alignWidth, int align) {
 		super(null, x, y);
 		this.font = font;
 		this.text = text;
 		this.textAlign = align;
 		this.textAlignWidth = alignWidth;
-		_textBounds = font.getBounds(text);
+        _textBounds = new GlyphLayout();
+        _textBounds.setText(font, text);
 	}
 
 	@Override
 	public void draw(SpriteBatch batch) {
 		if (state == STATE_DEAD)
 			return;
-		font.setScale(scale);
+		font.getData().setScale(scale);
 		font.setColor(1, 1, 1, alpha);
-		if (textAlign == null) {
+		if (textAlign == 0) {
 			font.draw(batch, text, position.x, position.y+(_textBounds.height/2));
-		}
-		else {
-			font.drawMultiLine(batch, text, position.x-(textAlignWidth/2), position.y+(_textBounds.height/2), 
-				textAlignWidth, textAlign);
+        }
+        else {
+            font.draw(batch, text, position.x - (textAlignWidth/2), position.y+(_textBounds.height/2),
+				textAlignWidth, textAlign, true);
 		}
 		font.setColor(1, 1, 1, 1);
-		font.setScale(1);
+        font.getData().setScale(1);
 	}
 
 	/**
