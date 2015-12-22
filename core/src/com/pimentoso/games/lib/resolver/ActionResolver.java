@@ -2,28 +2,33 @@ package com.pimentoso.games.lib.resolver;
 
 public interface ActionResolver {
 	
-	public abstract boolean gameServicesAvailable();
+	boolean gameServicesAvailable();
 	
-	public abstract void gameServicesLogin();
+	void gameServicesLogin();
 
-	public abstract void gameServicesLogOut();
+	void gameServicesLogOut();
 
 	//get if client is signed in to Google+
-	public abstract boolean gameServicesIsSignedIn();
+	boolean gameServicesIsSignedIn();
 
 	//submit a score to a leaderboard
-	public abstract void gameServicesSubmitScore(int score, String leaderboardId);
+	void gameServicesSubmitScore(int score, String leaderboardId);
 
 	//gets the scores and displays them threw googles default widget
-	public abstract void gameServicesGetScores(String leaderboardId);
+	void gameServicesGetScores(String leaderboardId);
 
-	public abstract void gameServicesUnlockAchievement(String achievementId);
+	void gameServicesUnlockAchievement(String achievementId);
 
 	//gets the achievements and displays them threw googles default widget
-	public abstract void gameServicesGetAchievements();
+	void gameServicesGetAchievements();
 
-	public abstract void gameServicesSubmitAllScores();
+	void gameServicesSubmitAllScores();
 	
-	public abstract void openMarket(String app);
+	void openMarket(String app);
 
+	void openUrl(String url);
+
+	void facebookShare(String text);
+
+	void twitterShare(String text);
 }
