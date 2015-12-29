@@ -26,4 +26,10 @@ public interface ActionResolver {
 	
 	public abstract void openMarket(String app);
 
+	public abstract void openUrl(String url);
+
+	public abstract void facebookShare(String title, String description, String url);
+
+	public abstract void twitterShare(String text);
+
 }
