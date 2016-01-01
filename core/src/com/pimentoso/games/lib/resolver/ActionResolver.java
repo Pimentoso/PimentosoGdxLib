@@ -24,9 +24,11 @@ public interface ActionResolver {
 
 	void gameServicesSubmitAllScores();
 
-	void openMarket(String app);
+	void googlePlayRating();
 
 	void openUrl(String url);
+
+	void facebookShowPage(String id);
 
 	void facebookShare(String title, String description, String url);
 

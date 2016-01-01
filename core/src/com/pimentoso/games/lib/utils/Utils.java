@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -64,15 +65,17 @@ public class Utils {
 			return new Date();
 		}
 	}
-	
-	/**
-	 * Copied from StringUtils.isEmpty()
-	 */
-	public static boolean isEmpty(final CharSequence cs) {
-		return cs == null || cs.length() == 0;
-	}
-	public static boolean isNotEmpty(final CharSequence cs) {
-		return !Utils.isEmpty(cs);
+
+	public static long getDaysDifference(String dateFrom, String dateTo) {
+		try {
+			Date date1 = format.parse(dateFrom);
+			Date date2 = format.parse(dateTo);
+			long diff = date2.getTime() - date1.getTime();
+			return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+		}
+		catch (ParseException e) {
+			return 0;
+		}
 	}
 	
 	/**
