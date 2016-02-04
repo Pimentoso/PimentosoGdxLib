@@ -28,9 +28,11 @@ public interface ActionResolver {
 
 	void openUrl(String url);
 
-	void facebookShowPage(String id);
+	void facebookShowPage(String name);
 
 	void facebookShare(String title, String description, String url);
+
+	void twitterShowPage(String name, String id);
 
 	void twitterShare(String text);
 }
