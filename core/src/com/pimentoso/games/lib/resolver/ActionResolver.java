@@ -35,4 +35,10 @@ public interface ActionResolver {
 	void twitterShowPage(String name, String id);
 
 	void twitterShare(String text);
+
+	void startActivity1();
+
+	void startActivity2();
+
+	void startActivity3();
 }
