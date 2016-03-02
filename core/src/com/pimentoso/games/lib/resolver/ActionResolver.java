@@ -41,4 +41,8 @@ public interface ActionResolver {
 	void startActivity2();
 
 	void startActivity3();
+
+	void showToast(String text);
+
+	void showAlertDialog(String title, String text);
 }
