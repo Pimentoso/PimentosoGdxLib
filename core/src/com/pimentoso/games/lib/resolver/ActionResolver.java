@@ -38,9 +38,15 @@ public interface ActionResolver {
 
 	void startActivity1();
 
+	void startActivity1(String data);
+
 	void startActivity2();
 
+	void startActivity2(String data);
+
 	void startActivity3();
+
+	void startActivity3(String data);
 
 	void showToast(String text);
 
