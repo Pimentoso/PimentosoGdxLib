@@ -1,11 +1,5 @@
 package com.pimentoso.games.lib.utils;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
@@ -13,6 +7,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Utils {
 	
@@ -66,16 +66,17 @@ public class Utils {
 		}
 	}
 
-	public static long getDaysDifference(String dateFrom, String dateTo) {
-		try {
-			Date date1 = format.parse(dateFrom);
-			Date date2 = format.parse(dateTo);
-			long diff = date2.getTime() - date1.getTime();
-			return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-		}
-		catch (ParseException e) {
-			return 0;
-		}
+	/**
+	 * Get a diff between two dates
+	 * Usage: getDateDiff(date1, date2, TimeUnit.MINUTES);
+	 * @param date1 the oldest date
+	 * @param date2 the newest date
+	 * @param timeUnit the unit in which you want the diff
+	 * @return the diff value, in the provided unit
+	 */
+	public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
+		long diffInMillies = date2.getTime() - date1.getTime();
+		return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
 	}
 	
 	/**
