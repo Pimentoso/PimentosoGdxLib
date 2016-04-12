@@ -66,6 +66,10 @@ public class Utils {
 		}
 	}
 
+	public static boolean isToday(Date source) {
+		return getTodayDate().equals(format.format(source));
+	}
+
 	/**
 	 * Get a diff between two dates
 	 * Usage: getDateDiff(date1, date2, TimeUnit.MINUTES);
