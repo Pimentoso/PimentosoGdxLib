@@ -80,7 +80,7 @@ public class Utils {
 	 */
 	public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
 		long diffInMillies = date2.getTime() - date1.getTime();
-		return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
+		return timeUnit.convert(diffInMillies, TimeUnit.MILLISECONDS);
 	}
 	
 	/**
@@ -100,6 +100,13 @@ public class Utils {
 		return new TextureRegion(createTexturePixel(c), 2, 2);
 	}
 
+	public static float getColorLuminosity(String hex) {
+		return getColorLuminosity(Color.valueOf(hex));
+	}
+
+	public static float getColorLuminosity(Color c) {
+		return (c.r+c.r+c.b+c.g+c.g+c.g)/6f;
+	}
 	
 	public static void main(String... args) {
 		Interpolation intrp = Interpolation.circleIn;
