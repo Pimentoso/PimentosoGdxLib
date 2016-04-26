@@ -51,4 +51,6 @@ public interface ActionResolver {
 	void showToast(String text);
 
 	void showAlertDialog(String title, String text);
+
+	void showErrorDialog(String title, String text);
 }
