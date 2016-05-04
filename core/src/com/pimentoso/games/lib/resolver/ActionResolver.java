@@ -61,5 +61,6 @@ public interface ActionResolver {
 	interface LoadGameListener {
 		void loaded(byte[] data);
 		void failed();
+		void error();
 	}
 }
