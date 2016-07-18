@@ -24,9 +24,9 @@ public interface ActionResolver {
 
 	void gameServicesSubmitAllScores();
 
-	void gameServicesSaveGame(String data);
+	void gameServicesSaveGame(GameSaveListener listener);
 
-	void gameServicesLoadGame(LoadGameListener listener);
+	void gameServicesLoadGame(GameSaveListener listener);
 
 	void googlePlayRating();
 
@@ -58,9 +58,11 @@ public interface ActionResolver {
 
 	void showErrorDialog(String title, String text);
 
-	interface LoadGameListener {
-		void loaded(byte[] data);
-		void failed();
-		void error();
+	interface GameSaveListener {
+		void loadSuccess(byte[] data);
+		void saveSuccess();
+		void loadFail();
+		void saveFail();
+		void error(String message);
 	}
 }
