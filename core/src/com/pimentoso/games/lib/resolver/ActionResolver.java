@@ -40,17 +40,9 @@ public interface ActionResolver {
 
 	void twitterShare(String text);
 
-	void startActivity1();
+	void startActivity(String activity);
 
-	void startActivity1(String data);
-
-	void startActivity2();
-
-	void startActivity2(String data);
-
-	void startActivity3();
-
-	void startActivity3(String data);
+	void startActivity(String activity, String data);
 
 	void showToast(String text);
 
