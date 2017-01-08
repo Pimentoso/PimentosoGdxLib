@@ -30,13 +30,15 @@ public interface ActionResolver {
 
 	void googlePlayRating();
 
+	void inAppPurchase(String sku);
+
 	void openUrl(String url);
 
 	void facebookShowPage(String name);
 
 	void facebookShare(String title, String description, String url);
 
-	void twitterShowPage(String name, String id);
+	void twitterShowPage(String userName, String userId);
 
 	void twitterShare(String text);
 
