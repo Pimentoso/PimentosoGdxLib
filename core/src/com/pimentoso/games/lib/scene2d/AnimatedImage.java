@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -22,19 +23,15 @@ public class AnimatedImage extends Widget {
 	private int align = Align.center;
 	private float imageX, imageY, imageWidth, imageHeight;
 	
-	private Animation animation;
+	private Animation<TextureAtlas.AtlasRegion> animation;
 	public int state;
 	public float stateTime;
-	
-	public AnimatedImage() {
-		this((Animation) null);
-	}
-	
-	public AnimatedImage(Animation animation) {
+
+	public AnimatedImage(Animation<TextureAtlas.AtlasRegion> animation) {
 		this(animation, Scaling.stretch, Align.center);
 	}
 	
-	public AnimatedImage(Animation animation, Scaling scaling, int align) {
+	public AnimatedImage(Animation<TextureAtlas.AtlasRegion> animation, Scaling scaling, int align) {
 		setAnimation(animation);
 		this.scaling = scaling;
 		this.align = align;
@@ -55,7 +52,7 @@ public class AnimatedImage extends Widget {
 		float scaleY = getScaleY();
 
 		if (animation != null) {
-			TextureRegion region = animation.getKeyFrame(stateTime);
+			TextureRegion region = (TextureRegion) animation.getKeyFrame(stateTime);
 			float rotation = getRotation();
 			if (scaleX == 1 && scaleY == 1 && rotation == 0)
 				batch.draw(region, x + imageX, y + imageY, imageWidth, imageHeight);
