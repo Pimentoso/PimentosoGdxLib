@@ -1,10 +1,5 @@
 package com.pimentoso.games.lib.utils;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
@@ -13,10 +8,17 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
 public class Utils {
 	
 	public static final StringBuilder sb = new StringBuilder();
-	public static final DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	public static final DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 	
 	/**
 	 * Interpola un valore compreso fra un massimo e un minimo secondo una {@link Interpolation}.
@@ -64,15 +66,22 @@ public class Utils {
 			return new Date();
 		}
 	}
-	
-	/**
-	 * Copied from StringUtils.isEmpty()
-	 */
-	public static boolean isEmpty(final CharSequence cs) {
-		return cs == null || cs.length() == 0;
+
+	public static boolean isToday(Date source) {
+		return getTodayDate().equals(format.format(source));
 	}
-	public static boolean isNotEmpty(final CharSequence cs) {
-		return !Utils.isEmpty(cs);
+
+	/**
+	 * Get a diff between two dates
+	 * Usage: getDateDiff(date1, date2, TimeUnit.MINUTES);
+	 * @param date1 the oldest date
+	 * @param date2 the newest date
+	 * @param timeUnit the unit in which you want the diff
+	 * @return the diff value, in the provided unit
+	 */
+	public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
+		long diffInMillies = date2.getTime() - date1.getTime();
+		return timeUnit.convert(diffInMillies, TimeUnit.MILLISECONDS);
 	}
 	
 	/**
@@ -92,6 +101,13 @@ public class Utils {
 		return new TextureRegion(createTexturePixel(c), 2, 2);
 	}
 
+	public static float getColorLuminosity(String hex) {
+		return getColorLuminosity(Color.valueOf(hex));
+	}
+
+	public static float getColorLuminosity(Color c) {
+		return (c.r+c.r+c.b+c.g+c.g+c.g)/6f;
+	}
 	
 	public static void main(String... args) {
 		Interpolation intrp = Interpolation.circleIn;
