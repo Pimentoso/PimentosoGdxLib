@@ -12,12 +12,13 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class Utils {
 	
 	public static final StringBuilder sb = new StringBuilder();
-	public static final DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	public static final DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 	
 	/**
 	 * Interpola un valore compreso fra un massimo e un minimo secondo una {@link Interpolation}.
