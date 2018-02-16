@@ -27,12 +27,22 @@ public class BaseActionResolver implements ActionResolver {
 	}
 
 	@Override
+	public String gameServicesGetPlayerId() {
+		return null;
+	}
+
+	@Override
+	public String gameServicesGetPlayerName() {
+		return null;
+	}
+
+	@Override
 	public void gameServicesSubmitScore(int score, String leaderboardId) {
 
 	}
 
 	@Override
-	public void gameServicesGetScores(String leaderboardId) {
+	public void gameServicesShowLeaderboard(String leaderboardId) {
 
 	}
 
@@ -42,12 +52,7 @@ public class BaseActionResolver implements ActionResolver {
 	}
 
 	@Override
-	public void gameServicesGetAchievements() {
-
-	}
-
-	@Override
-	public void gameServicesSubmitAllScores() {
+	public void gameServicesShowAchievements() {
 
 	}
 
