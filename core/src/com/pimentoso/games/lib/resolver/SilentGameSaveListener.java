@@ -3,7 +3,8 @@ package com.pimentoso.games.lib.resolver;
 /**
  * Created by sako on 05/11/2016.
  */
-public class SilentGameSaveListener implements ActionResolver.GameSaveListener {
+public class SilentGameSaveListener implements ActionResolver.GameServicesSaveListener {
+
 	@Override
 	public void loadSuccess(byte[] data) {
 
@@ -15,17 +16,12 @@ public class SilentGameSaveListener implements ActionResolver.GameSaveListener {
 	}
 
 	@Override
-	public void loadFail() {
+	public void loadFailed(String message) {
 
 	}
 
 	@Override
-	public void saveFail() {
-
-	}
-
-	@Override
-	public void error(String message) {
+	public void saveFailed(String message) {
 
 	}
 }

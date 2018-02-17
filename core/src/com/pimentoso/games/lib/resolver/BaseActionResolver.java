@@ -57,12 +57,12 @@ public class BaseActionResolver implements ActionResolver {
 	}
 
 	@Override
-	public void gameServicesSaveGame(GameSaveListener listener) {
+	public void gameServicesSaveGame(String payload) {
 
 	}
 
 	@Override
-	public void gameServicesLoadGame(GameSaveListener listener) {
+	public void gameServicesLoadGame() {
 
 	}
 

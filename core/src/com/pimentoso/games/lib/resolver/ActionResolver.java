@@ -25,9 +25,9 @@ public interface ActionResolver {
 	//gets the achievements and displays them threw googles default widget
 	void gameServicesShowAchievements();
 
-	void gameServicesSaveGame(GameSaveListener listener);
+	void gameServicesSaveGame(String payload);
 
-	void gameServicesLoadGame(GameSaveListener listener);
+	void gameServicesLoadGame();
 
 	void googlePlayRating();
 
@@ -53,11 +53,15 @@ public interface ActionResolver {
 
 	void showErrorDialog(String title, String text);
 
-	interface GameSaveListener {
+	interface GameServicesSignInListener {
+		void onSignInFailed();
+		void onSignInSucceeded();
+	}
+
+	interface GameServicesSaveListener {
 		void loadSuccess(byte[] data);
 		void saveSuccess();
-		void loadFail();
-		void saveFail();
-		void error(String message);
+		void loadFailed(String message);
+		void saveFailed(String message);
 	}
 }
