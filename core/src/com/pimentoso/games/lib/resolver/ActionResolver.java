@@ -2,6 +2,8 @@ package com.pimentoso.games.lib.resolver;
 
 public interface ActionResolver {
 
+	public static final String BUNDLE_DATA = "DATA_0";
+
 	boolean gameServicesAvailable();
 
 	void gameServicesLogin();
